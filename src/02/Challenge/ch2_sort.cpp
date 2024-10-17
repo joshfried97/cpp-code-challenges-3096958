@@ -14,17 +14,27 @@
 //           arr: A pointer acting as the array to sort.
 //           n: The size of the array.
 // Returns: A boolean value: True on success, false otherwise.
-bool sort_array(int *arr, int n){
+void sort_array(int *arr, int n){
+    if (n > 0)
+    {
+        sort_array(arr, n - 1);
+        int x = arr[n];
+        int j = n - 1;
 
-    // Write your code here
-
-    return false;
+        while (j >= 0 && arr[j] > x)
+        {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        
+        arr[j + 1] = x;
+    }
 }
 
 // Main function
 int main(){
     // The following array will be treated as an array of length len. 
-    const int len = 7; // Don't exceed the length of the array below!
+    const int len = 10; // Don't exceed the length of the array below!
     int array[] = {2, 9, 4, 3, 5, 1, 6, 8, 0, 7};
 
     // Print the original array
