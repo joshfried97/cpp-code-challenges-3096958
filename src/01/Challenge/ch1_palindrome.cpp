@@ -29,7 +29,7 @@ bool isEqual(string::iterator a, string::iterator b) {
     {
         return true;
     }
-    
+
     return false;
 }
 
@@ -49,9 +49,6 @@ bool is_palindrome(std::string str){
 
     while (first_it != str.end() && last_it !=str.begin())
     {
-        //cout << "f " << *first_it++ << endl;
-        //cout << "l "<< *last_it-- << endl;
-
         if (!isEqual(first_it,last_it))
         {
             return false;
