@@ -49,11 +49,25 @@ bool is_palindrome(std::string str){
 
     while (first_it != str.end() && last_it !=str.begin())
     {
+        // Check for spaces
+        if (isspace(*first_it))
+        {
+            first_it++;
+            continue;
+        }
+
+        if (isspace(*last_it))
+        {
+            last_it--;
+            continue;
+        }
+        
         if (!isEqual(first_it,last_it))
         {
             return false;
         }
 
+        // Move to next character to check
         first_it++;
         last_it--;
     }
