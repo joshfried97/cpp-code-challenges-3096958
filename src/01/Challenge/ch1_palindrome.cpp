@@ -62,6 +62,7 @@ bool is_palindrome(std::string str){
             continue;
         }
         
+        // Check the characters are equal
         if (!isEqual(first_it,last_it))
         {
             return false;
