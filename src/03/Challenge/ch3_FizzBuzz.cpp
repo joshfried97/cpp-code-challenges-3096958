@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+using namespace std;
+
 // FizzBuzz, main()
 // Summary: This application runs on the main function.
 int main(){
@@ -15,7 +17,35 @@ int main(){
     std::cout << "Enter a positive integer: " << std::flush;
     std::cin >> n;
 
+    // Flags tracking multiples of 3 & 5
+    bool div3 = false;
+    bool div5 = false;
+
     // Write your code here
+    cout << "Fizz Buzz sequence: ";
+    for (int i = 1; i <= n; i++)
+    {
+        div3 = i % 3 == 0;
+        div5 = i % 5 == 0;
+
+        if (!div3 && !div5)
+        {
+            cout << i << " ";
+            continue;
+        }
+
+        if (div3)
+        {
+            cout << "Fizz";
+        }
+        
+        if (div5)
+        {
+            cout << "Buzz";
+        }
+
+        cout << " ";        
+    }    
     
     std::cout << std::endl << std::flush;
     return 0;
