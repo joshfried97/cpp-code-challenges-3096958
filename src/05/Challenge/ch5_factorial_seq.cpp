@@ -17,13 +17,16 @@
 int print_factorials(int n){
     
     // Write your code here
-
-    return 0;
+    if (n == 0) {
+        return 1;
+    } else {
+        return n * print_factorials(n-1);
+    }
 }
 
 // Main function
 int main(){
-    print_factorials(10);
-    std::cout << std::endl << std::endl << std::flush;
+    int result = print_factorials(3);
+    std::cout << "Result = " << result << std::endl << std::endl << std::flush;
     return 0;
 }
