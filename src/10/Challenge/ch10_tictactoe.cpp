@@ -46,6 +46,23 @@ void make_move(char game[][3], char mark){
     return;
 }
 
+// Check if the board is full
+bool full_board(char game[][3]){
+    for (size_t i = 0; i < 3; i++)
+    {
+        for (size_t j = 0; j < 3; i++)
+        {
+            if (game[i][j] == ' ')
+            {
+                return false; 
+            }
+        }
+    }
+
+    return true;
+    
+}
+
 // game_state()
 // Summary: This function returns the state of a game.
 // Arguments:
@@ -55,11 +72,75 @@ void make_move(char game[][3], char mark){
 //                                  'X': X won.
 //                                  'O': O won.
 //                                  't': A tie.
-char game_state(char game[][3]){
+char game_state(char game[][3]){    
+    for (size_t i = 0; i < 3; i++)
+    {
+        // Check rows
+        if (game[i][0] == game[i][1] && game[i][1] == game[i][2]){
+            if (game[i][0] != ' ' && game[i][1] != ' ' && game[i][2] != ' ')
+            {
+                switch (game[i][0])
+                {
+                case 'X':
+                    return 'X';
+                case 'O':
+                    return 'O';
+                }
+            }
+        }
 
-    // Write your code here
+        // Check columns
+        if (game[0][i] == game[1][i] && game[1][i] == game[2][i]){
+            if (game[0][i] != ' ' && game[1][i] != ' ' && game[2][i] != ' ')
+            {
+                switch (game[0][i])
+                {
+                case 'X':
+                    return 'X';
+                case 'O':
+                    return 'O';
+                }
+            }
+        }
+    }
 
-    return 'a';
+    // Check top left to bottom right diagonal
+    if (game[0][0] == game[1][1] && game[1][1] == game[2][2])
+    {
+        if (game[0][0] != ' ' && game[1][1] != ' ' && game[2][2] != ' ')
+        {
+            switch (game[1][1])
+            {
+            case 'X':
+                return 'X';
+            case 'O':
+                return 'O';
+            }
+        }   
+    }
+
+    // Check bottom left to top right diagonal
+    if (game[0][2] == game[1][1] && game[1][1] == game[2][0])
+    {
+        if (game[0][2] != ' ' && game[1][1] != ' ' && game[2][0] != ' ')
+        {
+            switch (game[1][1])
+            {
+            case 'X':
+                return 'X';
+            case 'O':
+                return 'O';
+            }
+        }
+    }
+    
+    // Check whether the board is full yet
+    if (full_board(game))
+    {
+        return 't';
+    } else  {
+        return 'a';
+    }
 }
 
 // print_game()
