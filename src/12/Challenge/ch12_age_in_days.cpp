@@ -13,19 +13,44 @@
 int main(){
     int birth_y, birth_m, birth_d, today_y, today_m, today_d, age;
 
-    std::cout << "Enter your birth date's month as a number: " << std::flush;
-    std::cin >> birth_m;
+    // Read in birth date from user
     std::cout << "Enter your birth date's day: " << std::flush;
     std::cin >> birth_d;
+    std::cout << "Enter your birth date's month as a number: " << std::flush;
+    std::cin >> birth_m;
     std::cout << "Enter your birth date's year: " << std::flush;
     std::cin >> birth_y;
     
-    if(birth_m < 1)
+    if(birth_m < 1){
         birth_m = 1;
-    if(birth_m > 12)
+    }
+        
+    if(birth_m > 12) {
         birth_m = 12;
+    }
 
-    // Write your code here
+    time_t timestamp = time(NULL);
+
+    // Create ctime instance for birth date
+    struct tm birthDate;
+    birthDate = *localtime(&timestamp);
+    birthDate.tm_mday = birth_d;
+    birthDate.tm_mon = birth_m - 1;
+    birthDate.tm_year = birth_y - 1900;
+
+    // Retrieve time now
+    struct tm datetime = *localtime(&timestamp);
+    
+    today_d = datetime.tm_mday;
+    today_m = datetime.tm_mon + 1;
+    today_y = datetime.tm_year + 1900;
+    std::cout << "Today's date: " << today_d << "/" << today_m << "/" << today_y << std::endl;
+
+    // Calculate difference in seconds using built-in function
+    float age_sec = difftime(mktime(&datetime), mktime(&birthDate));
+
+    // Convert from seconds to days
+    age = (int)age_sec/(60*60*24);
 
     if(age < 43830)
         std::cout << "You are " << age << " days old.";
