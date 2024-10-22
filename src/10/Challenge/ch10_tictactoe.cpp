@@ -34,7 +34,7 @@ void ask_for_move(char game[][3], char mark){
 //           mark: The AI's mark: 'X' or 'O'.
 // Returns: Nothing.
 
-//#define TWO_PLAYERS
+#define TWO_PLAYERS
 void make_move(char game[][3], char mark){ 
     #ifdef TWO_PLAYERS
     ask_for_move(game,mark);
@@ -61,7 +61,7 @@ void make_move(char game[][3], char mark){
 bool full_board(char game[][3]){
     for (size_t i = 0; i < 3; i++)
     {
-        for (size_t j = 0; j < 3; i++)
+        for (size_t j = 0; j < 3; j++)
         {
             if (game[i][j] == ' ')
             {
@@ -71,7 +71,6 @@ bool full_board(char game[][3]){
     }
 
     return true;
-    
 }
 
 // game_state()
