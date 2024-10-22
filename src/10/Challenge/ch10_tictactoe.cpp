@@ -34,13 +34,24 @@ void ask_for_move(char game[][3], char mark){
 //           mark: The AI's mark: 'X' or 'O'.
 // Returns: Nothing.
 
-#define TWO_PLAYERS
+//#define TWO_PLAYERS
 void make_move(char game[][3], char mark){ 
     #ifdef TWO_PLAYERS
     ask_for_move(game,mark);
     #else
     
-    // Write your code here and comment out the definition of TWO_PLAYERS above
+    // Randomly select point on board and place if it is empty
+    int min = 0;
+    int max = 2;
+    int r;
+    int c;
+    do
+    {
+        r = min + (rand() % static_cast<int>(max - min + 1));
+        c = min + (rand() % static_cast<int>(max - min + 1));        
+    } while (game[r][c] != ' ');
+    
+    game[r][c] = mark;
 
     #endif
     return;
