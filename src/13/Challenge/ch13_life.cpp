@@ -19,6 +19,74 @@
 #define N 10
 #define M 10
 
+const int coordShift[8][2] = {{-1,-1},{-1,0},{-1,1},{0,-1},{0,1},{1,-1},{1,0},{1,1}};
+
+int wrappingChecker(int coord){
+    if (coord < 0)
+    {
+        return 9;
+    }
+    if (coord > 9)
+    {
+        return 0;
+    }
+}
+
+// Update the grid per epoch
+void update(char (&game)[N][M]){
+    // Store current state of the game
+    char oldGame[N][M];
+    memcpy(oldGame, game, M*N*sizeof(char));
+
+    for (size_t i = 0; i < N; i++)
+    {
+        for (size_t j = 0; j < M; j++)
+        {
+            int liveNeighbours = 0;
+            for (size_t k = 0; k < 8; k++)
+            {
+                // Check for wrapping
+                int newR = wrappingChecker(i + coordShift[k][0]);
+                int newC = wrappingChecker(j + coordShift[k][1]);
+                
+                liveNeighbours += oldGame[newR][newC] == 'X';
+            }
+
+            // Determine whether the cell lives to the next generation or dies
+            if (oldGame[i][j] == 'X')
+            {
+                if (liveNeighbours < 2)
+                {
+                    // Cell dies due to underpopulation
+                    game[i][j] = '-';
+                    continue;
+                }
+
+                if (liveNeighbours == 2 || liveNeighbours == 3)
+                {
+                    // Cell lives until the next generation
+                    continue;
+                }
+                
+                if (liveNeighbours > 3)
+                {
+                    // Cell dies due to overpopulation
+                    game[i][j] = '-';
+                    continue;
+                }
+            } else {
+                if (liveNeighbours == 3)
+                {
+                    // Cell becomes alive due to reproduction
+                    game[i][j] = 'X';
+                    continue;
+                }
+            }
+        }
+    }
+    
+}
+
 // Conway's Game of Life, main()
 // Summary: This application is a simulation of Conway's game of life.
 int main(){    
@@ -49,7 +117,7 @@ int main(){
         }
         std::cout << "\n";
 
-        // Write your code here
+        update(game);
         
         std::cout << "Press Enter for the next generation, or type \"Exit\": " << std::flush;
         std::getline(std::cin,go_on);
