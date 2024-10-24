@@ -24,9 +24,43 @@ int is_valid_JSON(std::string filename){
     std::fstream file (filename, std::ios::in);
     if(file.is_open()){
  
-        // Write your code here
+        // Ensure there are even number of opening and closing { brackets
+        int curlyCnt = 0;
+        int squareCnt = 0;
+        bool singleQuotes = false;
 
+        char ch;
+
+        // Start scanning the file
+        while (file.get(ch)) {
+            if (ch == '{') {
+                curlyCnt++;
+            } else if (ch == '}')
+            {
+                curlyCnt--;
+            }
+
+            if (ch == '[') {
+                squareCnt++;
+            } else if (ch == ']')
+            {
+                squareCnt--;
+            }
+
+            if (ch == '\'')
+            {
+                return 0;
+            }
+        }      
         file.close();
+
+        if (curlyCnt != 0 || squareCnt != 0)
+        {
+            return 0;
+        } else {
+            return 1;
+        }
+        
     }
     else
         return -1;
